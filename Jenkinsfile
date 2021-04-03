@@ -22,21 +22,5 @@ stages{
                 }
             }
         }
-
-        stage ('Deployments'){
-            parallel{
-                stage ('Deploy to Staging'){
-                    steps {
-                        sh "scp -v -i ~/Downloads/pub.pem -o StrictHostKeyChecking=no **/target/*.war ubuntu@${params.tomcat_dev}:/home/ubuntu/apache-tomcat-staging/webapps"
-                    }
-                }
-
-                stage ("Deploy to Production"){
-                    steps {
-                        sh "scp -v -i ~/Downloads/pub.pem -o StrictHostKeyChecking=no **/target/*.war ubuntu@${params.tomcat_prod}:/home/ubuntu/apache-tomcat-prod/webapps"
-                    }
-                }
-            }
-        }
     }
 }
